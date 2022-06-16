@@ -1,14 +1,28 @@
 import React from "react";
 import "./ToDo.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const ToDo = () => {
-  const [inputData, setInputData] = useState("");
+  let [inputData, setInputData] = useState("");
   const [items, setItems] = useState([]);
+  const [editItem, setEditItem] = useState("");
+  let [toggle, setToggle] = useState(false);
   //ADDING ITEMS
   const addItem = () => {
     if (!inputData) {
       alert("Enter the Item to add");
+    } else if (inputData && toggle) {
+      setItems(
+        items.map((currItem) => {
+          //   console.log(editItem);
+          //   console.log(currItem.id === editItem);
+          if (currItem.id === editItem) {
+            return { ...currItem, name: inputData };
+          } else {
+            return currItem;
+          }
+        })
+      );
     } else {
       const myNewData = {
         id: new Date().getTime().toString(),
@@ -17,6 +31,8 @@ const ToDo = () => {
       setItems([myNewData, ...items]);
       setInputData("");
     }
+    setToggle(false);
+    setInputData("");
   };
   //TO DELETE ITEMS
   const deleteItems = (id) => {
@@ -30,8 +46,20 @@ const ToDo = () => {
   const removeAll = () => {
     console.log("ClearAll Cliked");
     setItems([]);
+    setToggle(false);
+    setInputData("");
   };
-  //ADDING LOCAL STORAGE
+  //EDITING THE DATA
+  const editItems = (id) => {
+    setToggle(true);
+    console.log("Edit Button Cliked.", id);
+    const updatedData = items.find((currItem) => {
+      return currItem.id === id;
+    });
+    setEditItem(id);
+    setInputData(updatedData.name);
+  };
+
   return (
     <>
       <div className="main-div">
@@ -50,7 +78,14 @@ const ToDo = () => {
                 setInputData(event.target.value);
               }}
             />
-            <i className="fa-solid fa-plus plus" onClick={addItem}></i>
+            {toggle ? (
+              <i
+                className="fa-solid fa-pen-to-square  plus-toggle plus edit"
+                onClick={addItem}
+              ></i>
+            ) : (
+              <i className="fa-solid fa-plus plus" onClick={addItem}></i>
+            )}
           </div>
           {/* show items*/}
           {items.map((currItem, value) => {
@@ -59,7 +94,11 @@ const ToDo = () => {
               <div className="show-items" key={value}>
                 <span className="added-todo">{currItem.name}</span>
                 <div className="edit-delete">
-                  <i className="fa-solid fa-pen-to-square edit"></i>
+                  <i
+                    className="fa-solid fa-pen-to-square edit"
+                    onClick={() => editItems(currItem.id)}
+                  ></i>
+
                   <i
                     className="fa-solid fa-trash delete"
                     onClick={() => deleteItems(currItem.id)}
