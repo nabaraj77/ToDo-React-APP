@@ -1,0 +1,101 @@
+.main-div {
+  display: flex;
+  justify-content: center;
+}
+img {
+  margin-left: 35%;
+  height: 50px;
+  width: 70px;
+  border: 1px solid tomato;
+  border-radius: 10px;
+}
+.child-div {
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: gray;
+
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 3%;
+}
+figcaption {
+  color: white;
+  font-size: large;
+  padding: 7px;
+}
+input {
+  width: 95%;
+  padding: 7px;
+  font-size: larger;
+  border: none;
+  border-radius: 7px;
+  margin-bottom: 5%;
+}
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  background-color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 5px;
+  width: 90px;
+}
+.plus {
+  font-size: larger;
+  margin-right: 0;
+  margin-left: -10%;
+  color: gray;
+}
+.add-items {
+  display: inline-block;
+}
+/* SHOWING ITEMS */
+.show-items {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 95%;
+  padding: 7px;
+  font-size: larger;
+  border: none;
+  border-radius: 7px;
+  margin-bottom: 5%;
+  background-color: skyblue;
+  color: white;
+}
+.delete {
+  color: white;
+  margin-left: 10px;
+}
+.edit {
+  color: white;
+}
+.edit-delete {
+  display: flex;
+}
+input:focus {
+  outline: none !important;
+}
+.show-items:hover {
+  background-color: white;
+  color: black;
+  transition: all;
+  transition-duration: 1s;
+}
+.show-items:hover .edit {
+  color: green;
+  opacity: 0.8;
+  transition: all;
+  transition-duration: 1s;
+}
+.show-items:hover .delete {
+  color: red;
+  opacity: 0.8;
+  transition: all;
+  transition-duration: 2s;
+}
